@@ -1,1 +1,2 @@
-# problems
+# Problems
+Competitive programming problem solving
