@@ -1,57 +1,37 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+const int MAXN = 1e5+5;
 
-    long long n;
-    int k;
+int main(){
+    int n, k;
     cin >> n >> k;
-
-    vector<int> a(n);
-    for (int i=0; i<n; i++){
+    vector<int>a(n);
+    vector<int>freq(MAXN, 0);
+    for(int i=0; i<n; i++){
         cin >> a[i];
     }
-
-    long long totalsub = n*(n+1)/2;
-    long long invalidas=0;
-
-    if(k==2){
-        long long atual = 1;
-        for (int i=1; i<n; i++){
-            if (a[i] == a[i-1]){
-                atual++;
-            }else{
-                invalidas+=atual*(atual+1)/2;
-                atual=1;
+    int tipos=0;
+    long long int resp=0;
+    for(int esq=0, dir=0; esq<n; esq++){
+        while(tipos<k && dir<n){
+            if (freq[a[dir]] == 0){
+                tipos++;
             }
+            freq[a[dir]]++;
+            dir++;
         }
-        invalidas+=atual*(atual+1)/2;
-    }else{
-        int esquerda = 0;
-        vector<int> contador(n+1, 0);
-        int distintos = 0;
-
-        for (int direita=0; direita<n; direita++){
-            if (contador[a[direita]] == 0){
-                distintos++;
-            }
-            contador[a[direita]]++;
-
-            while (distintos >= k) {
-                contador[a[esquerda]]--;
-                if (contador[a[esquerda]] == 0){
-                    distintos--;
-                }
-                esquerda++;
-            }
-            invalidas+=(direita-esquerda+1);
+        if(tipos>=k){
+            resp+=(n-dir+1);
+        }
+        freq[a[esq]]--;
+        if(freq[a[esq]]==0){
+            tipos--;
         }
     }
 
-    cout << totalsub-invalidas;
-
+    cout << resp;
     return 0;
 }
