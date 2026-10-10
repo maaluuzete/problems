@@ -150,9 +150,9 @@ int main() {
         }
 
         vector<int> q = query(1, 1, m, 1, cv[i]-1, k);
-        for (int i=0; i<= k; i++){
-            if (q[i]!=-1 && q[i]+1>dp[i]){
-                dp[i]=q[i]+1;
+        for (int j=0; j<= k; j++){
+            if (q[j]!=-1 && q[j]+1>dp[j]){
+                dp[j]=q[j]+1;
             }
         }
 
